@@ -1,0 +1,18 @@
+<ul class="list-unstyled">
+  <% subjects.each do |subject| %>
+    <li class="media mb-3">
+      <div class="media-body">
+        <div>
+          <%= link_to subject.content, subject_path(subject.user) %>
+        </div>
+          <div class='btn-toolbar'>
+            <div class="btn-group">
+              <% if current_user == subject.user %>
+                <%= link_to "編集する", new_subject_path, class: 'btn btn-secondary btn-sm' %>
+              <% end %>
+            </div>
+          </div>  
+      </div>
+    </li>
+  <% end %>
+</ul>

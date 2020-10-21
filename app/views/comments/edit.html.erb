@@ -1,0 +1,20 @@
+<div class="text-center">
+  <h1>コメントを編集する</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+
+    <%= form_with model:[@subject, @comment], local: true do |f| %>
+        <%= render 'layouts/error_messages' , model: f.object %>
+      
+      <div class="form-group">
+        <%= f.label :message, 'コメント' %>
+        <%= f.text_field :message, class: 'form-control' %>
+      </div>
+      
+      <%= f.submit '投稿する', class: 'btn btn-primary btn-block' %>
+      <%= link_to 'このメッセージを削除する', subject_comment_path(@subject , @comment) ,method: :delete, data: { confirm: '本当に削除してもよろしいですか?' }, class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+</div>

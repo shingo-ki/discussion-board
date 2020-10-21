@@ -2,4 +2,26 @@
     <div class="text-center">
         <h1>DisucussionBoard</h1>
     </dib>
-</div>    
+</div>        
+<% if @subjects.any? %>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>タイトル</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @subjects.each do |subject| %>
+             <tr>
+                <td><%= link_to subject.id, subject %></td>
+                <td><%= link_to subject.content, subject %></td>
+             </tr>
+          <% end %>    
+        </tbody>
+    </table>
+    <div>
+        <%= paginate @subjects %>  
+    </div>
+<% end %>
+

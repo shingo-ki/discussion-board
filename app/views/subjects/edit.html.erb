@@ -1,0 +1,19 @@
+<div class="text-center">
+  <h1>掲題を編集する</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+
+    <%= form_with(model: @subject, local: true) do |f| %>
+        <%= render 'layouts/error_messages' , model: f.object %>
+      
+      <div class="form-group">
+        <%= f.label :content, '掲題' %>
+        <%= f.text_field :content, class: 'form-control' %>
+      </div>
+      
+      <%= f.submit '投稿する', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  </div>
+</div>
