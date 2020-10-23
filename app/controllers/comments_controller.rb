@@ -2,16 +2,17 @@ class CommentsController < ApplicationController
   def create
     @subject = Subject.find(params[:subject_id])
     @comment = @subject.comments.new(comment_params)
-    @comment.user_id = current_user.id
+    if logged_in?
+      @comment.user_id = current_user.id
+    else
+      @comment.user_id = 1
+    end  
     if @comment.save
       flash[:success] = 'コメントを投稿しました。'
       redirect_to @subject
     else
       redirect_to @subject
     end  
-  end
-
-  def new
   end
 
   def edit
@@ -32,14 +33,17 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    Comment.find(params[:id]).destroy
+    @comment = Comment.find(params[:id])
+    @subject = @comment.subject 
+    Comment.find_by(id: params[:id],subject_id: params[:subject_id]).destroy
     flash[:success] = "コメントは正常に削除されました。"
-    redirect_to root_url
+    redirect_to @subject
   end
 
 
-
   private
+  
+  
   def comment_params
     params.require(:comment).permit(:message)
   end

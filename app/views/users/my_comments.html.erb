@@ -8,6 +8,6 @@
             <li class="nav-item"><a href="<%= likes_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(likes_user_path(@user)) %>">いいね一覧  <span class="badge badge-secondary"></span></a></li>
             <li class="nav-item"><a href="<%= user_path(@user) %>" class="nav-link <%= 'active' if current_page?(user_path(@user)) %>">立てた掲題一覧  <span class="badge badge-secondary"></span></a></li>
         </ul>
-        <%= render 'subjects/subjects', subjects: @user.subjects %>
+        <%= render 'comments/comments', comments: @my_comments %>
     </div>
 </div>    

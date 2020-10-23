@@ -24,10 +24,21 @@ class UsersController < ApplicationController
       render :new
     end
   end
-
+  
+  def likes
+    @user = User.find(params[:id])
+    @likes = @user.favoritings.page(params[:page])
+  end  
+  
+  def my_comments
+    @user = User.find(params[:id])
+    @my_comments = @user.comments.page(params[:page])
+  end
+  
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
+
 end

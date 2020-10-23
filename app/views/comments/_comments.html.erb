@@ -1,0 +1,19 @@
+<ul class="list-unstyled">
+  <% comments.each do |comment| %>
+    <li class="media mb-3">
+      <div class="media-body">
+        <div>
+          <%= link_to comment.message, subject_path(comment.subject) %>
+        </div>
+          <div class='btn-toolbar'>
+            <div class="btn-group">
+              <% if current_user == comment.user %>
+                <%= link_to "Delete", subject_comment_path(comment.subject , comment) , method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+              <% end %>
+              <%= render 'favorites/favorite_button', comment: comment  %>
+            </div>
+          </div>  
+      </div>
+    </li>
+  <% end %>
+</ul>

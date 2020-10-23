@@ -5,7 +5,12 @@ class SubjectsController < ApplicationController
   def show
     @subject = Subject.find(params[:id])
     @comments = @subject.comments
-    @comment = current_user.comments.new
+    if logged_in?
+      @comment = current_user.comments.new
+    else
+      user = User.find(1)
+      @comment = user.comments.new
+    end
   end
 
   def new
