@@ -1,45 +1,53 @@
-<h1><%= @subject.content %></h1>
-<% if current_user == @subject.user%>
-    <%= link_to 'この掲題を編集する', edit_subject_path(@subject), class: 'btn btn-light' %>
-<% end %>    
-
-
-<ul class="list-unstyled">
-  <%= 'コメント一覧' %>
-  <% @comments.each do |comment| %>
-    <li class="media">
-      <div class="media-body">
-        <div>
-          <%= comment.message %>
+<div class="row">
+  <div class="col-sm-7 offset-sm-5">
+    <h1><%= @subject.content %></h1>
+    <% if current_user == @subject.user%>
+        <div class="offset-sm-6">
+          <%= link_to 'この掲題を編集する', edit_subject_path(@subject), class: 'btn btn-light' %>
         </div>
-        <% if current_user == comment.user %>
-        <%= link_to 'コメントを編集する', edit_subject_comment_path(@subject,comment) %>
-        <% end %>
-        <% if logged_in? %>
-          <%= render 'favorites/favorite_button', comment: comment  %>
-        <% end %>
-      </div>
-    </li>
-  <% end %>
-</ul>
-
+    <% end %>      
+  </div>
+</div>  
+  <h3><%= 'コメント一覧' %></h3>
+<div class="row">
+  <div class="offset-sm-1 col-sm-11">
+    <table class="table">
+      <% @comments.each do |comment| %>
+        <li class="media">
+          <div class="media-body">
+            <div>
+              <%= comment.message %>
+            </div>
+            <div class='btn-toolbar'>
+              <div class="btn-group">
+                <% if current_user == comment.user %>
+                 <%= link_to 'コメントを編集する' ,edit_subject_comment_path(@subject,comment), class: 'btn btn-light' %> 
+                <% end %>
+                <% if logged_in? %>
+                  <%= render 'favorites/favorite_button', comment: comment  %>
+                <% end %>
+              </div>
+            </div>  
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>  
 
 <div class="row">
-  <div class="col-sm-6 offset-sm-3">
-
+  <div class="col-sm-5 offset-sm-7">
     <%= form_with model:[@subject, @comment], local: true do |f| %>
         <%= render 'layouts/error_messages' , model: f.object %>
-      
-      <div class="form-group">
-        <%= f.label :message, 'コメント' %>
-        <%= f.text_field :message, class: 'form-control' %>
-      </div>
-      
-      <%= f.submit 'コメントを投稿する', class: 'btn btn-primary btn-block' %>
+        
+        <div class="form-group">
+          <%= f.label :message, 'コメント' %>
+          <%= f.text_field :message, class: 'form-control' %>
+        </div>
+        <%= f.submit 'コメントを投稿する', class: 'btn btn-primary btn-block' %>
     <% end %>
   </div>
 </div>
-
 
 
 

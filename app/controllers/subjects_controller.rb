@@ -31,7 +31,7 @@ class SubjectsController < ApplicationController
   end
 
   def edit
-     @subject = current_user.subjects.find_by(id:params[:id])
+     @subject = current_user.subjects.find(params[:id])
   end
   
   def update
